@@ -26,7 +26,8 @@ class Welcome extends CI_Controller {
 			$option = ['limit' => 10];
 			$results = $this->mongodriver->query("member",$filter,$option);
 			foreach ($results as $row) {
-				echo ($row->_id) . "</br>\n";
+				echo ($row->nama) . "</br>\n";
+				echo ($row->noid) . "</br>\n";
 			}
 	}
 }
