@@ -20,6 +20,13 @@ class Welcome extends CI_Controller {
 	 */
 	public function index()
 	{
-		$this->load->view('welcome_message');
+		// $this->load->view('welcome_message');
+		$this->load->library('Mongodriver');
+			$filter = [];
+			$option = ['limit' => 10];
+			$results = $this->mongodriver->query("member",$filter,$option);
+			foreach ($results as $row) {
+				echo ($row->_id) . "</br>\n";
+			}
 	}
 }
