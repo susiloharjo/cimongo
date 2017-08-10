@@ -1,33 +1,41 @@
 <?php
 defined('BASEPATH') OR exit('No direct script access allowed');
 
-class Welcome extends CI_Controller {
+class Welcome extends CI_Controller{
 
-	/**
-	 * Index Page for this controller.
-	 *
-	 * Maps to the following URL
-	 * 		http://example.com/index.php/welcome
-	 *	- or -
-	 * 		http://example.com/index.php/welcome/index
-	 *	- or -
-	 * Since this controller is set as the default controller in
-	 * config/routes.php, it's displayed at http://example.com/
-	 *
-	 * So any other public methods not prefixed with an underscore will
-	 * map to /index.php/welcome/<method_name>
-	 * @see https://codeigniter.com/user_guide/general/urls.html
-	 */
+  public function __construct()
+  {
+    parent::__construct();
+		$this->load->library('Mongodriver');
+
+    //Codeigniter : Write Less Do More
+  }
+
 	public function index()
 	{
 		// $this->load->view('welcome_message');
-		$this->load->library('Mongodriver');
 			$filter = [];
 			$option = ['limit' => 10];
 			$results = $this->mongodriver->query("member",$filter,$option);
 			foreach ($results as $row) {
+        // echo ($row->id) . "</br>\n";
 				echo ($row->nama) . "</br>\n";
 				echo ($row->noid) . "</br>\n";
 			}
 	}
+
+	public function add() {
+		$data = array(
+	                  'id'=>1,
+	                  'nama'=>"Sigit",
+	                  'noid'=>"00215"
+									);
+		$this->mongodriver->insert("member",$data);
+		redirect('Welcome');
+
+	}
+
+
+
+
 }
